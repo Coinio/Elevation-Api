@@ -9,22 +9,9 @@ You can provide locations (WGS84 Decimal Geocordinates) and it should give you a
 
 As this is just a demo app hosted on a tiny Ubuntu vm, only the elevation data for the UK is available. If you wanted to host the project yourself, you can get the full worldwide data from here: http://wiki.openstreetmap.org/wiki/SRTM. It requires the .hgt formatted elevation files.
 
-Usage:
+Example:
 
 http://45.76.143.179/api/elevation/56.79685,-5.003508 (Ben Nevis, Scotland) 
 
-Result:
-
-`
-[
-  {
-    "coordinates": {
-      "latitude": 56.79685,
-      "longitude": -5.003508
-    },
-    "elevationInMetres": 1335
-  }
-]
-`
 
 
