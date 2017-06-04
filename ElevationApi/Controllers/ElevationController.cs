@@ -34,9 +34,10 @@ namespace Elevation.Api.Controllers
         /// <summary>
         /// Get the elevation readings for one or more coordinates.
         /// </summary>
-        /// <param name="coordinates"></param>
+        /// <param name="coordinates">A list of pipe separated decimal geo-coordinates, e.g. 54.4,-3.2|54.5,-3.5 </param>
         /// <returns></returns>
         [HttpGet("api/elevation/{coordinates}")]
+        [ProducesResponseType(200, Type = typeof(ElevationPoint[]))]
         public IActionResult GetElevation(DecimalGeoCoordinate[] coordinates)
         {
             if (!ModelState.IsValid)
@@ -57,13 +58,12 @@ namespace Elevation.Api.Controllers
         }
 
         /// <summary>
-        /// Get an elevation profile. 
-        /// This returns the elevation readings for each of the requested coordinates which the cumulative distance from the starting point. 
-        /// The distance allows for the profile to be plotted on a graph with the correct spacing between elevation points.
+        /// Get an elevation profile. Each result data point contains the cumulative distance from the starting point of the profile.
         /// </summary>
-        /// <param name="coordinates"></param>
+        /// <param name="coordinates">A list of pipe separated decimal geo-coordinates, e.g. 54.454225,-3.211586|54.5,-3.5 </param>
         /// <returns></returns>
         [HttpGet("api/elevation/profile/{coordinates}")]
+        [ProducesResponseType(200, Type = typeof(ElevationProfilePoint[]))]
         public IActionResult GetProfile(DecimalGeoCoordinate[] coordinates)
         {
             if (!ModelState.IsValid)

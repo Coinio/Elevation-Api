@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using Elevation.Data.Files;
 using Elevation.Api.Configuration;
 using Elevation.Api.ModelBinders;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
 
 namespace ElevationApi
 {
@@ -41,6 +44,12 @@ namespace ElevationApi
             {
                 options.ModelBinderProviders.Insert(0, new DecimalGeoCoordinateModelBinderProvider());
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Elevation Api", Version = "v1" });
+                c.IncludeXmlComments(GetXmlCommentsPath());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,8 +57,20 @@ namespace ElevationApi
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-            
+
             app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Elevation Api V1");
+            });
+        }
+
+        private String GetXmlCommentsPath()
+        {
+            var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+
+            return Path.Combine(basePath, "elevationapi.xml");
         }
     }
 }

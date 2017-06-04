@@ -17,11 +17,11 @@ namespace Elevation.Api.Configuration
             get
             {
                 if (IsWindows())
-                    return "windows";
+                    return "Windows";
                 if (IsMac())
-                    return "macos";
+                    return "Mac";
                 if (IsLinux())
-                    return "linux";
+                    return "Linux";
 
                 return "unknown";
             }
