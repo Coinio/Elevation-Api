@@ -11,7 +11,7 @@ As this is just a demo app hosted on a tiny Ubuntu vm, only the elevation data f
 
 Example:
 
-http://45.76.143.179/api/elevation/56.79685,-5.003508 (Ben Nevis, Scotland) 
+http://45.76.143.179/elevation_site/api/elevation/56.79685,-5.003508 (Ben Nevis, Scotland) 
 
 
 
