@@ -165,7 +165,7 @@ namespace Elevation.Api.Controllers
         /// <summary>
         /// Retrieve the required Elevation Files for the set of co-ordinates and add any new files to the cache
         /// </summary>
-        /// <param name="elevationFiles"></param>
+        /// <param name="coordinates"></param>
         private ElevationFile[] GetOrCreateRequiredFilesInCache(DecimalGeoCoordinate[] coordinates)
         {
             var filenames = ParseFilenamesFromCoordinates(coordinates);
@@ -185,7 +185,10 @@ namespace Elevation.Api.Controllers
 
                     newFile = _elevationFileReader.LoadFile(filePath);
 
-                    _cache.Set(filename, newFile);
+                    // TODO : Add to config / update to a sensible option.
+                    var cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(1));
+
+                    _cache.Set(filename, newFile, cacheOptions);
                 }
 
                 requiredFiles.Add(newFile);
