@@ -3,7 +3,7 @@ This is an api to provide elevation data similar to the google elevation api. It
 
 Swagger Documentation: 
 
-http://45.76.143.179/Swagger/
+https://elevation-api-test.azurewebsites.net/Swagger/
 
 You can provide locations (WGS84 Decimal Geocordinates) and it should give you a reasonably accurate elevation reading for those co-ordinates. It's not completely accurate due to the elevation data being of a fairly low resolution averages of the Earth's surface but is good enough for use with elevation profiles, etc.
 
@@ -11,7 +11,7 @@ As this is just a demo app hosted on a tiny Ubuntu vm, only the elevation data f
 
 Example:
 
-http://45.76.143.179/api/elevation/56.79685,-5.003508 (Ben Nevis, Scotland) 
+https://elevation-api-test.azurewebsites.net/api/elevation/56.79685,-5.003508 (Ben Nevis, Scotland) 
 
 
 
