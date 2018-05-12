@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Elevation.Api</name>
+    </assembly>
+    <members>
+        <member name="T:Elevation.Api.Configuration.ElevationDataOptions">
+            <summary>
+            The configuration options for the elevation data
+            </summary>
+        </member>
+        <member name="P:Elevation.Api.Configuration.ElevationDataOptions.ElevationDataPath">
+            <summary>
+            The path to the folder which contains the elevation data
+            </summary>
+        </member>
+        <member name="M:Elevation.Api.Controllers.ElevationController.GetElevation(Geolocation.DecimalGeoCoordinate[])">
+            <summary>
+            Get the elevation readings for one or more coordinates.
+            </summary>
+            <param name="coordinates">A list of pipe separated decimal geo-coordinates, e.g. 54.4,-3.2|54.5,-3.5 </param>
+            <returns></returns>
+        </member>
+        <member name="M:Elevation.Api.Controllers.ElevationController.GetProfile(Geolocation.DecimalGeoCoordinate[])">
+            <summary>
+            Get an elevation profile. Each result data point contains the cumulative distance from the starting point of the profile.
+            </summary>
+            <param name="coordinates">A list of pipe separated decimal geo-coordinates, e.g. 54.454225,-3.211586|54.5,-3.5 </param>
+            <returns></returns>
+        </member>
+        <member name="M:Elevation.Api.Controllers.ElevationController.GetElevationPointsForCoordinates(Elevation.Data.Files.ElevationFile[],Geolocation.DecimalGeoCoordinate[])">
+            <summary>
+            Get the list of elevation results for a list of coordinates
+            </summary>
+            <param name="coordinates"></param>
+            <param name="requiredFiles"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Elevation.Api.Controllers.ElevationController.GetElevationProfileForCoordinates(Elevation.Data.Files.ElevationFile[],Geolocation.DecimalGeoCoordinate[])">
+            <summary>
+            Get the elevation profile for a list of coordinates
+            </summary>
+            <param name="requiredFiles"></param>
+            <param name="coordinates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Elevation.Api.Controllers.ElevationController.GetElevationAtCoordinate(Elevation.Data.Files.ElevationFile[],Geolocation.DecimalGeoCoordinate)">
+            <summary>
+            Retrieve the elevation for a coordinate from a set of elevation data sets
+            </summary>
+            <param name="elevationFiles"></param>
+            <param name="coordinate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Elevation.Api.Controllers.ElevationController.ParseFilenamesFromCoordinates(Geolocation.DecimalGeoCoordinate[])">
+            <summary>
+            Retrieve the file names for list of required elevation data sets for the list of requested co-ordinates.
+            </summary>
+            <param name="coordinates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Elevation.Api.Controllers.ElevationController.GetOrCreateRequiredFilesInCache(Geolocation.DecimalGeoCoordinate[])">
+            <summary>
+            Retrieve the required Elevation Files for the set of co-ordinates and add any new files to the cache
+            </summary>
+            <param name="elevationFiles"></param>
+        </member>
+    </members>
+</doc>

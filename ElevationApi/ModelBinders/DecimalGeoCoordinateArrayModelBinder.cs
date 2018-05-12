@@ -23,14 +23,14 @@ namespace Elevation.Api.ModelBinders
             var valueProviderResult = bindingContext.ValueProvider.GetValue(modelName);
 
             if (valueProviderResult == ValueProviderResult.None)
-                return TaskCache.CompletedTask;
+                return Task.CompletedTask;
 
             bindingContext.ModelState.SetModelValue(modelName, valueProviderResult);
 
             var value = valueProviderResult.FirstValue;
 
             if (String.IsNullOrEmpty(value))
-                return TaskCache.CompletedTask;
+                return Task.CompletedTask;
 
             var coordinates = new List<DecimalGeoCoordinate>();
             var coordinateStrings = value.Split('|');
@@ -42,7 +42,7 @@ namespace Elevation.Api.ModelBinders
                 if (latAndLong.Length != 2)
                 {
                     bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, "Invalid coordinate format.");
-                    return TaskCache.CompletedTask;
+                    return Task.CompletedTask;
                 }
 
                 var latitudeString = latAndLong[0];
@@ -53,7 +53,7 @@ namespace Elevation.Api.ModelBinders
                 if (!DecimalGeoCoordinate.TryParse(latitudeString, longitudeString, out coordinate))
                 {
                     bindingContext.ModelState.TryAddModelError(bindingContext.ModelName, $"Invalid coordinate: {latitudeString}, {longitudeString}");
-                    return TaskCache.CompletedTask;
+                    return Task.CompletedTask;
                 }
 
                 coordinates.Add(coordinate);
@@ -61,7 +61,7 @@ namespace Elevation.Api.ModelBinders
 
             bindingContext.Result = ModelBindingResult.Success(coordinates.ToArray());
 
-            return TaskCache.CompletedTask;
+            return Task.CompletedTask;
         }
     }
 }

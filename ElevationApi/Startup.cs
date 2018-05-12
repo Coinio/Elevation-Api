@@ -1,29 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Elevation.Api.Configuration;
+using Elevation.Api.ModelBinders;
+using Elevation.Data.Files;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Elevation.Data.Files;
-using Elevation.Api.Configuration;
-using Elevation.Api.ModelBinders;
 using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.Extensions.PlatformAbstractions;
+using System;
 using System.IO;
+using System.Reflection;
 
 namespace ElevationApi
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public Startup(IHostingEnvironment environment)
         {
+            _hostingEnvironment = environment;
+
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
+                .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{OperatingSystem.Name}.json", optional: false)
+                .AddJsonFile($"appsettings.{Elevation.Api.Configuration.OperatingSystem.Name}.json", optional: false)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -45,10 +46,12 @@ namespace ElevationApi
                 options.ModelBinderProviders.Insert(0, new DecimalGeoCoordinateModelBinderProvider());
             });
 
+            var xmlCommentsPath = GetXmlCommentsPath();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Elevation Api", Version = "v1" });
-                c.IncludeXmlComments(GetXmlCommentsPath());
+                c.IncludeXmlComments(xmlCommentsPath);
             });
         }
 
@@ -68,9 +71,9 @@ namespace ElevationApi
 
         private String GetXmlCommentsPath()
         {
-            var basePath = PlatformServices.Default.Application.ApplicationBasePath;
-
-            return Path.Combine(basePath, "elevationapi.xml");
+            var appPath = _hostingEnvironment.WebRootPath;
+            
+            return Path.Combine(appPath, "elevationapi.xml");
         }
     }
 }
