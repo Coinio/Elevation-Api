@@ -34,8 +34,5 @@
     <ProjectReference Include="..\Elevation.Domain\Elevation.Domain.csproj" />
     <ProjectReference Include="..\Geolocation\Geolocation.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
 
 </Project>

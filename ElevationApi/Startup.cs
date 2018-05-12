@@ -24,7 +24,7 @@ namespace ElevationApi
             var builder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{Elevation.Api.Configuration.OperatingSystem.Name}.json", optional: false)
+                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: false)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
